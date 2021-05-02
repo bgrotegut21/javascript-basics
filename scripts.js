@@ -332,24 +332,7 @@ var SCRIPTS = [
     {
       name: "Han",
       ranges: [[11904, 11930], [11931, 12020], [12032, 12246], [12293, 12294], [12295, 12296], [12321, 12330], [12344, 12348], [13312, 19894], [19968, 40939], [63744, 64110], [64112, 64218], [131072, 173783], [173824, 177973], [177984, 178206], [178208, 183970], [183984, 191457], [194560, 195102]],
-      direction: "ltr",
-      year: -1100,
-      living: true,
-      link: "https://en.wikipedia.org/wiki/Chinese_characters"
-    },
-    {
-      name: "Hanunoo",
-      ranges: [[5920, 5941]],
-      direction: "ltr",
-      year: 1300,
-      living: true,
-      link: "https://en.wikipedia.org/wiki/Hanun%C3%B3%27o_alphabet"
-    },
-    {
-      name: "Hatran",
-      ranges: [[67808, 67827], [67828, 67830], [67835, 67840]],
-      direction: "rtl",
-      year: -40,
+ 
       living: false,
       link: "https://en.wikipedia.org/wiki/Hatran_alphabet"
     },
@@ -1122,16 +1105,57 @@ var SCRIPTS = [
   if (typeof global != "undefined" && !global.SCRIPTS)
     global.SCRIPTS = SCRIPTS;
 
+const filter = function(array, test){
+	let passed = [];
+	for (let element of array){
+		if(test(element)){
+			passed.push(element);
+		}
+	}
+	return passed; };
 
-let passed = [];
-function filter (array,test){
-    let passed = [];
-    for (let element of array){
-        if test(array){
-            passed.push(element);
-        }
-    }
-    return passed;
+
+function map(array, transform) {
+	let mapped = [];
+	for (let element of array){
+		mapped.push(transform(element));
+	}
+	return mapped;
 }
 
-filte
+let ttbScripts = SCRIPTS.filter(element => element.direction == "ltr");
+let names = ttbScripts.map(element => element.name);
+
+function reduce(array,combination,start){
+	let current = start;
+	let counter = 1;
+	for (let element of array){
+		current = combination(element, current);
+	}
+	return current;
+}
+
+addNumbers = reduce([1,3,4,5],(a,b) => a-b, 0)
+
+function characterCount(script){
+	return script.ranges.reduce((count,[from,to]) => {
+		return count + (to -from);
+	}, 0);
+}
+
+console.log(SCRIPTS.reduce((a,b) => {
+	return characterCount(a) < characterCount(b) ? b:a;
+}));
+
+function average(array){
+	console.log(array)
+	return reduce(array, (a,b) => a+b,0)/array.length;	
+}
+
+let living  = filter(SCRIPTS,element => element.living);
+let notLiving = filter(SCRIPTS, element => !element.living);
+
+let isLiving = average(map(living, element => element.year));
+let isNotLiving = average(map(notLiving, element => element.year))
+console.log(isLiving);
+console.log(isNotLiving);
