@@ -332,7 +332,7 @@ var SCRIPTS = [
     {
       name: "Han",
       ranges: [[11904, 11930], [11931, 12020], [12032, 12246], [12293, 12294], [12295, 12296], [12321, 12330], [12344, 12348], [13312, 19894], [19968, 40939], [63744, 64110], [64112, 64218], [131072, 173783], [173824, 177973], [177984, 178206], [178208, 183970], [183984, 191457], [194560, 195102]],
- 
+      year: -1766,
       living: false,
       link: "https://en.wikipedia.org/wiki/Hatran_alphabet"
     },
@@ -1159,3 +1159,36 @@ let isLiving = average(map(living, element => element.year));
 let isNotLiving = average(map(notLiving, element => element.year))
 console.log(isLiving);
 console.log(isNotLiving);
+
+
+function characterScript(code) {
+	for (let script of SCRIPTS){
+		if (script.ranges.some(([first, last]) => {
+			return code >= first  && code < last;
+    })) {
+		return script;
+	}
+	}
+	return null;
+}
+
+let emojiChar = "😃😄";
+console.log(emojiChar.length);
+console.log(emojiChar.codePointAt(0))
+
+const countBy = function(items, conditional){
+	let counts = [];
+	for (let item of items){
+		let label = conditional(item);
+		let known = counts.findIndex(c => c.label == label);
+		console.log(known);
+		if (known == -1){
+			counts.push({label:label,count:1})
+		} else {
+			counts[known].count ++;
+		}
+	}
+	return counts;
+}
+
+console.log(characterScript(121))
