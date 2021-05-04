@@ -1191,4 +1191,17 @@ const countBy = function(items, conditional){
 	return counts;
 }
 
-console.log(characterScript(121))
+const dominantDirection = function(text){
+	let scripts = countBy(text,char => {
+		let script = char.codePointAt(0);
+		if (script){
+			return script.direction;
+		} else {
+			return "none";
+		}
+	}).filter(({label}) => {
+		return label != "none";
+	})
+
+	
+}
