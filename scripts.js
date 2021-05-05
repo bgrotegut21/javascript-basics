@@ -334,6 +334,7 @@ var SCRIPTS = [
       ranges: [[11904, 11930], [11931, 12020], [12032, 12246], [12293, 12294], [12295, 12296], [12321, 12330], [12344, 12348], [13312, 19894], [19968, 40939], [63744, 64110], [64112, 64218], [131072, 173783], [173824, 177973], [177984, 178206], [178208, 183970], [183984, 191457], [194560, 195102]],
       year: -1766,
       living: false,
+	  direction:"ltr",
       link: "https://en.wikipedia.org/wiki/Hatran_alphabet"
     },
     {
@@ -1191,9 +1192,20 @@ const countBy = function(items, conditional){
 	return counts;
 }
 
+const greater = function(array, conditional){
+	newArray = [];
+	for (let element of array){
+		newArray.push(conditional(element))
+	}
+	newArray.sort((a,b) => b-a)
+	return newArray;
+};
+
+
 const dominantDirection = function(text){
+	let greatestArray = [];
 	let scripts = countBy(text,char => {
-		let script = char.codePointAt(0);
+		let script = characterScript(char.codePointAt(0))
 		if (script){
 			return script.direction;
 		} else {
@@ -1202,6 +1214,19 @@ const dominantDirection = function(text){
 	}).filter(({label}) => {
 		return label != "none";
 	})
+	highestCounts = greater(scripts, element => element.count);
+	for (let item of highestCounts){
+		for(let element of scripts){
+			if (element.count == item){
+				greatestArray.push(element)
+			}
+		}
+	}
+	console.log(greatestArray)
 
-	
+	return greatestArray[0].label;	
 }
+
+let rightToLeft = dominantDirection("Hey, مساء الخير")
+
+console.log(rightToLeft)

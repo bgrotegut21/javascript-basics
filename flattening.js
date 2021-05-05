@@ -25,13 +25,13 @@ const loop = function(element,condition,increment, log){
             loopMachine()
 
         }
-    }
+    };
     loopMachine();
     for(let item of tableArray){
         log(item);
     }
 
-}
+};
 loop(2,n => n <11, n => n+1,console.log);
 
 const every = function(array,test){
@@ -43,7 +43,7 @@ const every = function(array,test){
         }
     }
     return isTrue;
-}
+};
 
 const everySome = function(array,conditional){
     let isTrue = true;
@@ -54,7 +54,6 @@ const everySome = function(array,conditional){
         }
     })
     return isTrue;
-}
+};
 
-console.log(everySome([],n => n <10))
 
