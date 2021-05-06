@@ -138,29 +138,58 @@ class Matrix{
         console.log(this.content);
     }
     get(x,y){
-        return this.content[y* width +x];
+        console.log(this.content[y* this.width + x] , "content")
+        return this.content[y* this.width +x];
     }
+}
+
+class MatrixIteration{
+    constructor(matrix){
+        this.x = 0;
+        this.y = 0;
+        this.matrix = matrix;
+    }
+    next(){
+        if (this.y == this.matrix.height) return {done:true};
+        let value = {x:this.x,y:this.y,value:matrix.get(this.x, this.y)}
+        this.x ++;
+        if (this.x == this.matrix.width){
+            this.y ++;
+            this.x = 0;
+        }
+        return {value, done:false};
+    }
+}
+
+
+Matrix.prototype[Symbol.iterator] = function(){
+    return new MatrixIteration(this);
 }
 
 let matrix = new Matrix(2,2, (x,y) => `value ${x}, ${y}`);
 
+for (let {x,y,value} of matrix){
+    console.log(x,y,value);
+}
 
-
-
-
-
-
-class Simple {
-    constructor(num1,num2){
-        this.num1 = num1;
-        this.num2 = num2;
-        let table = [];
-        for(let i = 0; i < num1; i++){
-            for(let e; e < num2; e++){
-                table.push(num1)
-                table.push()
-            }
-        }
-
+class SymetricMatrix extends Matrix{
+    constructor(size, element = (x,y) => undefined){
+        super(size,size, (x,y) => {
+            if (x < y) return element(y, x);
+            else return element(x, y)
+        });
     }
+    set(x,y,value) {
+        super.set(x,y, value);
+        if (x != y){
+            super.set(y, x, value);
+        }
+    }
+}
+
+let matrix2 = new SymetricMatrix(5, (x,y) => `${x},${y}`)
+console.log(matrix2.get(2,3))
+
+class Simple{
+    s
 }
