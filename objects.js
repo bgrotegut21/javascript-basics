@@ -84,3 +84,88 @@ let ages = {
 console.log("julia is ages" + ages["Julia"])
 console.log("Is jacks age known", "Jack" in ages)
 console.log("is toString's age known?", "toString" in ages)
+
+let age = new Map();
+
+age.set("Joe",25);
+age.set("Lia",32);
+age.set("Jerry",62);
+
+console.log("Joe is "+ age.get("Joe"))
+console.log("Does Jerry exist "+ age.has("Jerry"))
+console.log(age.has("toString"))
+
+Shark.prototype.toString = function(){
+    return "a "+ this.type + " shark";
+};
+
+console.log(String(angryShark));
+
+let sym = Symbol("cool");
+
+const toStringSymbol = Symbol("toString");
+
+Array.prototype[toStringSymbol] = function(){
+    return this.length + "cm of yarm"
+}
+console.log([1,4].toString())
+console.log([1,2][toStringSymbol]())
+
+let stringObject = {
+    [toStringSymbol](){return "epic";}
+}
+console.log(stringObject[toStringSymbol]())
+
+let okIterator = "12345"[Symbol.iterator]();
+console.log(okIterator.next())
+console.log(okIterator.next())
+console.log(okIterator.next())
+console.log(okIterator.next())
+console.log(okIterator.next())
+console.log(okIterator.next())
+
+class Matrix {
+    constructor(width, height, element = (x,y) => undefined){
+        this.width = width;
+        this.height = height;
+        this.content = [];
+        for (let y = 0; y < height; y++){
+            for (let x = 0; x < width; x++){
+                this.content[y *width + x] = element(x,y);
+            }
+        }
+    }
+    get(x,y){
+        return this.content[y * this.width];
+    }
+
+}
+
+class MatrixIterator {
+    constructor(matrix){
+        this.x = 0;
+        this.y = 0;
+        this.matrix = matrix;
+    }
+    next(){
+        if(this.y == this.matrix.height) return {done: true};
+        let value = {x: this.x, y: this.y, value: this.matrix.get(this.x, this.y)}
+        this.x ++;
+
+        if (this.x == this.matrix.width){
+            this.x = 0;
+            this.y ++;
+        } 
+        return {value, done:false};
+    }
+}
+Matrix.prototype[Symbol.iterator] = function(){
+    return  new MatrixIterator(this);
+}
+
+
+
+let matrix = new Matrix(3,5,(x,y) => `value ${x}, ${y}`);
+for (let {x,y,value} of matrix){
+    console.log(x,y,value);
+}

@@ -1222,8 +1222,6 @@ const dominantDirection = function(text){
 			}
 		}
 	}
-	console.log(greatestArray)
-
 	return greatestArray[0].label;	
 }
 
