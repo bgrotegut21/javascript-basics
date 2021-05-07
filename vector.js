@@ -4,7 +4,6 @@ class Vec {
         this.y = y;
     }
     get length (){
-
         return Math.sqrt(this.x**2 + this.y**2)
     }
 }
