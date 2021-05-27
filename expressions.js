@@ -54,5 +54,33 @@ console.log("Borobudur".replace(/[ou]/g,"a"));
 
 console.log("kaykay".replace(/k/g,"g"))
 
-let testPlace = "Liscov, Barbara\nMcCarathy, John\nWadler, Phillip".replace(/(\w+),(\w+)/g, "$1 $2");
-console.log(testPlace)
+
+nuString = "John Smith Allen Sun".replace(/(\w+) (\w+)/g, "$2 $1")
+console.log(nuString)
+
+uCase = "this is awesome and epic".replace(/(awesome|epic)/g, s => s.toUpperCase())
+
+console.log(uCase)
+
+let stock = "12 lemon, 23 cabbages, and 101 eggs";
+function minusOne (match, amount,unit){
+    amount = Number(amount) -1
+    if (amount == 0){
+        amount = "no";
+    } else if (amount == 1){
+        unit.slice(0,unit-1)
+    }
+    return amount + " "+ unit;
+}
+console.log(stock.replace(/(\d+) (\w+)/g,minusOne))
+
+
+function stripComments(code){
+    return code.replace(/\/\/.*|\/\*[^]*\*\//g,"");
+}
+//javascript is awesome!
+console.log(stripComments("1 + /*2 */3"))
+console.log(stripComments("x = 10;//"))
+console.log(stripComments(""))
+
+c
