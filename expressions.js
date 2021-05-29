@@ -124,6 +124,8 @@ function parseINI(string){
     return result;
 }
 
-console.log(parseINI(`name = Varsils 
-[adress] 
-city =Tessaloniki `))
+console.log(parseINI(`
+name=Vasilis
+[address]
+city=Tessaloniki
+`))
