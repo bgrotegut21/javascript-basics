@@ -75,12 +75,35 @@ function minusOne (match, amount,unit){
 console.log(stock.replace(/(\d+) (\w+)/g,minusOne))
 
 
-function stripComments(code){
-    return code.replace(/\/\/.*|\/\*[^]*\*\//g,"");
+stripComments = function(string){
+    return string.replace(/\/\/.*|\/\*[^]*?\*\//g, "")
 }
+
+/*  */
 //javascript is awesome!
 console.log(stripComments("1 + /*2 */3"))
-console.log(stripComments("x = 10;//"))
-console.log(stripComments(""))
+console.log(stripComments("x = 10;//ujkljkl"))
+console.log(stripComments("1 /*a*/ + /*b*/ 1"))
 
-c
+let label = "dea+h1[]rd";
+let text = "This dea+h1[]rd is super annoying";
+let escaped = label.replace(/[\\[.+*?(){|^$]/g, "\\$&");
+let regexp = new RegExp("\\b(" + escaped + ")\\b",'gi');
+
+console.log(text.replace(regexp, "_$1_"));
+
+console.log(" word".search(/\S/));
+
+let pattern = /y/g;
+pattern.lastIndex = 3;
+let match = pattern.exec("xyzzy");
+console.log(match)
+console.log(pattern.lastIndex)
+
+let input = "A string with 3 numbers in it... 42 and 88";
+let number = /\b\d+\b/g;
+let matched;
+
+while (matched = number.exec(input)){
+    console.log(`Found ${matched[0]} at ${matched.index}`)
+}
