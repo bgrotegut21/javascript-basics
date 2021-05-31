@@ -1,30 +1,30 @@
 // Fill in the regular expressions
 
-verify(/[cart]/,
+verify(/car|cat/,
     ["my car", "bad cats"],
     ["camper", "high art"]);
 
-verify(/.../,
+verify(/pop|prop/,
     ["pop culture", "mad props"],
     ["plop", "prrrop"]);
 
-verify(/.../,
+verify(/ferret|ferry|ferrari/,
     ["ferret", "ferry", "ferrari"],
     ["ferrum", "transfer A"]);
 
-verify(/.../,
+verify(/ious\s+|ious$/,
     ["how delicious", "spacious room"],
     ["ruinous", "consciousness"]);
 
-verify(/.../,
+verify(/\s[.;,:]/,
     ["bad punctuation ."],
     ["escape the period"]);
 
-verify(/.../,
+verify(/\w{6}/,
     ["Siebentausenddreihundertzweiundzwanzig"],
     ["no", "three small words"]);
 
-verify(/.../,
+verify(/\b[^\We]+\b/i,
     ["red platypus", "wobbling nest"],
     ["earth bed", "learning ape", "BEET"]);
 
